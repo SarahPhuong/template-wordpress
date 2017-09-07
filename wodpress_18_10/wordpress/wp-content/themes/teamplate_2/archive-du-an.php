@@ -1,0 +1,147 @@
+<?php 
+	include("header.php");
+?>
+<body>
+
+<?php 
+	/*	// the query
+		$args = array(
+			'post_type' => 'san-pham',
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'danh-muc',
+					'field'    => 'slug',
+					'terms'    => 'bob',
+				),
+			),
+		);
+		
+		
+		$the_query = new WP_Query( $args ); ?>
+
+		<?php if ( $the_query->have_posts() )
+			{
+		?>
+			<!-- pagination here -->
+
+			<!-- the loop -->
+			<?php while ( $the_query->have_posts() )
+				{
+				  $the_query->the_post(); 
+				  $name=$the_query->post->post_title;
+				  $id=$the_query->post->ID;
+				  $ngay_dang=$the_query->post->post_date;
+				  
+				?>
+				<h2><?php echo $name  ?> - <?php echo $ngay_dang?> </h2>
+			<?php } ?>
+			<!-- end of the loop -->
+
+			<!-- pagination here -->
+
+			<?php wp_reset_postdata();
+
+			}
+			
+	*/		
+			?>
+			
+			
+<div class="wrapers">
+	<?php 
+			include("module/mod_head.php");
+		?>
+	<section class="content container containers">
+		<?php 
+			include("module/mod_left.php");
+		?>
+		<div class="main-right">
+		   <?php 
+			$taxonomy="danh-muc";
+			$catergory = get_terms(
+			  $taxonomy,
+				  array(	
+				  'orderby'    => 'custom_sort',	
+				  'parent'=>0,
+				  'order'    => 'desc',	
+				  'hide_empty' =>0	
+				  )	
+			  ); 	
+			 
+			 
+			 foreach($catergory as $cater)
+			{
+				   $link=get_term_link($cater->term_id,$taxonomy);
+		   ?>
+			<div class="sec-sp">	
+				<div class="title-sp">
+					<h3 class="title-h3"><?php echo $cater->name?></h3>
+					<div class="seemore"><a href="<?php echo $link?>">Xem tất cả</a></div>
+				</div>
+				<ul>
+					<?php 
+					// the query
+					$args = array(
+						'post_type' => 'san-pham',
+						'tax_query' => array(
+							array(
+								'taxonomy' => 'danh-muc',
+								'field'    => 'slug',
+								'terms'    => $cater->slug,
+							),
+						),
+					);
+					
+					
+					$the_query = new WP_Query( $args ); ?>
+
+					<?php if ( $the_query->have_posts() )
+						{
+					?>
+						<!-- pagination here -->
+
+						<!-- the loop -->
+						<?php while ( $the_query->have_posts() )
+							{
+							  $the_query->the_post(); 
+							  $name=$the_query->post->post_title;
+							  $id=$the_query->post->ID;
+							  $ngay_dang=$the_query->post->post_date;
+							  
+							?>
+							
+						<li><a href="">
+							<div class="img-sp"><img src="<?php bloginfo('template_directory'); ?>/img/sp.png"></div>
+							<h4 class="name-sp"><?php echo $name?></h4>
+							<div class="price-sp">Giá bán: <span>Liên hệ</span></div>
+						</a></li>
+						<?php } ?>
+						<!-- end of the loop -->
+
+						<!-- pagination here -->
+
+						<?php wp_reset_postdata();
+
+						}
+						?>
+				
+						 
+						
+						
+				</ul>
+			</div>
+			<?php 
+			}
+			?>
+		
+		</div>
+	</section>
+	
+	
+	<?php 
+		include("footer.php");
+	?>
+</div>
+
+</body>
+</html>

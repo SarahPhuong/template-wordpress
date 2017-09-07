@@ -1,0 +1,24 @@
+@media screen and (max-width: 1024px) {
+ .tr_mobile
+ {
+   display:block!important;
+ }
+ .tr_pc
+ {
+   display:none!important;
+ }
+ .header-bot-search {
+    float: right;
+    width: 100%;
+    text-align: right;
+}.header-bot-search input[type=text] {
+    line-height: 25px;
+}
+.header-bot-search button{
+	line-height:25px;
+}
+}
+@media only screen and (max-width: 767px){
+
+	
+}
